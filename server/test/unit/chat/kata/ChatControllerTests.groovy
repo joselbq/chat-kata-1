@@ -9,11 +9,11 @@ package chat.kata
 @TestFor(ChatController)
 class ChatControllerTests {
 
-	/*
-	 void setUp() {
-	 mockForConstraintsTests(ChatMessage)
-	 }
-	 void testListAll() {
+
+	void setUp() {
+		mockForConstraintsTests(ChatMessage)
+	}
+	/*void testListAll() {
 	 //controller.list()
 	 //assert response.text == '{"messages":[{"nick":"user1","message":"hello"},{"nick":"user2","message":"hola"}],"last_seq":1}'
 	 }*/
@@ -50,15 +50,13 @@ class ChatControllerTests {
 		// validate the response
 		assert response.text == '{"messages":[{"nick":"user3","message":"bye"}],"last_seq":2}'
 	}
-	
+
 	void testSend(){
 		def sentMessage = null
 
 		// create a mock definition with a stub for the putChatMessage method
 		def mockService = mockFor(ChatService)
-		mockService.demand.putChatMessage(1){ message ->
-			sentMessage = message
-		}
+		mockService.demand.putChatMessage(1){ message -> sentMessage = message }
 
 		controller.chatService = mockService.createMock()
 		// execute the controller
@@ -70,5 +68,35 @@ class ChatControllerTests {
 		assert sentMessage == message
 
 	}
+
+	void testInvalidSeq(){
+		params.seq = 'invalid'
+		controller.list()
+		assert response.status == 400
+		assert response.text == '{"error":"Invalid seq parameter"}'
+	}
+
+	void testSendWithInvalidJson(){
+		request.content = "not a json"
+		controller.send()
+		assert response.status == 400
+		assert response.text == '{"error":"Invalid body"}'
+	}
+
+	void testSendWithMissingNick(){
+		request.content = '{"message":"hi"}'
+		controller.send()
+		assert response.status == 400
+		assert response.text == '{"error":"Missing nick parameter"}'
+	}
+
+
+	void testSendWithMissingMessage(){
+		request.content = '{"nick":"bob"}'
+		controller.send()
+		assert response.status == 400
+		assert response.text == '{"error":"Missing message parameter"}'
+	}
+
 
 }
