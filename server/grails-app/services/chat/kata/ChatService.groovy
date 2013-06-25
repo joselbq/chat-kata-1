@@ -12,33 +12,43 @@ class ChatService {
 
 	/**
 	 * Collects chat messages in the provided collection
-	 * 
+	 *
 	 * @param if specified messages are collected from the provided sequence (exclusive)
 	 * @param messages the collection where to add collected messages
-	 * 
+	 *
 	 * @return the sequence of the last message collected.
 	 */
 	Integer collectChatMessages(Collection<ChatMessage> collector, Integer fromSeq = null){
-		_r_lock.lock()		
+		_r_lock.lock()
 		Integer value = fromSeq == null ? 0 : fromSeq + 1
 		Integer size = _myCollection.size()
-		while(value < size){
-			collector.add(_myCollection.getAt(value++));
+		try{
+			while(value < size){
+				collector.add(_myCollection.getAt(value++));
+			}
+		}catch (Exception e){
+			log.error("Exception collectChatMessages: "+e.printStackTrace());
+		}finally{
+			_r_lock.unlock();
 		}
-		_r_lock.unlock()
 		return value -1
 	}
 
 	/**
 	 * Puts a new message at the bottom of the chat
-	 * 
+	 *
 	 * @param message the message to add to the chat
 	 */
 	void putChatMessage(ChatMessage message){
 		_w_lock.lock()
-		if(message != null){
-			_myCollection.add(message);
+		try{
+			if(message != null){
+				_myCollection.add(message);
+			}
+		}catch (Exception e){
+			log.error("Exception  putChatMessage: "+ e.printStackTrace());
+		}finally{
+			_w_lock.unlock();
 		}
-		_w_lock.unlock()
 	}
 }
