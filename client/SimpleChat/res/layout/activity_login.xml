@@ -19,7 +19,7 @@
         android:textSize="45sp" />
 
     <EditText
-        android:id="@+id/chat"
+        android:id="@+id/chatText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" >
@@ -28,11 +28,10 @@
     </EditText>
 
     <Button
-        android:id="@+id/submitText"
+        android:id="@+id/submitLoginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"  
         android:onClick="loginChat"
-        />
+        android:text="Button" />
 
 </LinearLayout>

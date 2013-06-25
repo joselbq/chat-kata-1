@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 /**
  * Chat activity.
@@ -12,12 +13,14 @@ import android.view.MenuItem;
  * @author startic
  */
 public class ChatActivity extends Activity {
+	
+	private String userNick;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat);
-
+		this.userNick = getSharedPreferences("userInfo", MODE_PRIVATE).getString("userNick", "unKnown");
 		// Show the Up button in the action bar.
 		setupActionBar();
 
