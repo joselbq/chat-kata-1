@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Main activity.
@@ -55,10 +56,12 @@ public class LoginActivity extends Activity {
 				Intent loginIntent = new Intent(this, ChatActivity.class);
 				startActivity(loginIntent);
 			} else {
-				tv.setText("No_nick"); // Chapucilla, queremos mostrar un aviso.
+				Toast notification = Toast.makeText(getApplicationContext(), "Put your nick!", Toast.LENGTH_SHORT);
+				notification.show();
 			}
 		} catch (NullPointerException npe) {
-			tv.setText("Unknown_nick");
+			Toast notification = Toast.makeText(getApplicationContext(), "Fatal error!", Toast.LENGTH_SHORT);
+			notification.show();
 		}
 	}
 }
