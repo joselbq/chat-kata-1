@@ -50,9 +50,8 @@ public class NetRequests {
 		try {
 			HttpResponse response = httpclient.execute(httpget);
 			if (response.getStatusLine().getStatusCode() == 200) {
-				ArrayList<Message> chatList = parseJSON(EntityUtils
-						.toString(response.getEntity()));
-				handler.onSuccess(new ChatList(chatList));
+				handler.onSuccess(parseJSON(EntityUtils.toString(response
+						.getEntity())));
 			}
 		} catch (ClientProtocolException e) {
 			handler.onNetError();
@@ -62,22 +61,26 @@ public class NetRequests {
 		}
 	}
 
-	private ArrayList<Message> parseJSON(String stringJSON) {
+	private ChatList parseJSON(String stringJSON) {
+		int sequence = 0;
+		ChatList chatlist = null;
 		ArrayList<Message> messagesList = new ArrayList<Message>();
 		try {
 			JSONObject jsonObject = new JSONObject(stringJSON);
 			JSONArray jsonarray = jsonObject.getJSONArray("messages");
-			int index = 0;
+			int index = jsonarray.length();
 			JSONObject jsonMessage;
-			while ((jsonMessage = jsonarray.getJSONObject(index++)) != null) {
+			for(int i=0; i<index; i++){
+				jsonMessage = jsonarray.getJSONObject(i);
 				Message message = new Message(jsonMessage.get("nick")
 						.toString(), jsonMessage.get("message").toString());
 				messagesList.add(message);
 			}
+			sequence = Integer.parseInt(jsonObject.get("last_seq").toString());
+			chatlist = new ChatList(sequence, messagesList);
 		} catch (JSONException e) {
-			e.printStackTrace();
 		}
-		return messagesList;
+		return chatlist;
 	}
 
 	/**

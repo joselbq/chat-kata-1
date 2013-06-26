@@ -10,10 +10,20 @@ import java.util.ArrayList;
  */
 public class ChatList {
 
+	private int sequence; 
 	private ArrayList<Message> messagessList;
 
-	public ChatList(ArrayList<Message> messagessList) {
+	public ChatList(int sequence, ArrayList<Message> messagessList) {
+		this.sequence = sequence;
 		this.messagessList = messagessList;
+	}
+	
+	public int getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
 	}
 
 	public ArrayList<Message> getMessagessList() {

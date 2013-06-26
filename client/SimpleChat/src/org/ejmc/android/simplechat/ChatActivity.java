@@ -66,12 +66,14 @@ public class ChatActivity extends Activity {
 			@Override
 			public void run() {
 				TimerTask tareaTimer = new TimerTask() {
+					int sequence = 0; 
 					@Override
 					public void run() {
 						NetResponseHandler<ChatList> nrh = new NetResponseHandler<ChatList>();
-						new NetRequests().chatGET(0, nrh);
+						new NetRequests().chatGET(sequence, nrh);
 						android.os.Message chatlist = new android.os.Message();
 						chatlist.obj = nrh.getDatos();
+						sequence = ((ChatList)chatlist.obj).getSequence();
 						handlerGET.sendMessage(chatlist);
 					}
 				};
