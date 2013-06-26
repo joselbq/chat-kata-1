@@ -31,7 +31,6 @@ public class ChatActivity extends Activity {
 	private NetRequests nRequests;
 	private NetResponseHandler<Message> netResponseHandlerPOST;
 	private Timer timer; 
-
 	private Handler handlerMSG = new Handler() {
 		public void handleMessage(android.os.Message notification) {
 			Toast toast = Toast.makeText(getApplicationContext(),
@@ -39,7 +38,6 @@ public class ChatActivity extends Activity {
 			toast.show();
 		}
 	};
-
 	private Handler handlerGET = new Handler() {
 		public void handleMessage(android.os.Message chatList) {
 			TextView chat = (TextView) findViewById(R.id.chatText);
@@ -54,15 +52,12 @@ public class ChatActivity extends Activity {
 		}
 	};
 
-	// private Toast notificationPOST;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat);
 
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				TimerTask tareaTimer = new TimerTask() {
@@ -89,7 +84,6 @@ public class ChatActivity extends Activity {
 		sendText = (TextView) findViewById(R.id.inputChat);
 		nRequests = new NetRequests();
 		netResponseHandlerPOST = new NetResponseHandler<Message>();
-
 	}
 
 	@Override
@@ -131,6 +125,5 @@ public class ChatActivity extends Activity {
 				handlerMSG.sendMessage(notification);
 			}
 		}).start();
-
 	}
 }

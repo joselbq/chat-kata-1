@@ -11,27 +11,40 @@
     tools:context=".LoginActivity" >
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_width="326dp"
         android:layout_height="wrap_content"
-        android:text="Nick:"
+        android:layout_weight="1.60"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Chat-Kata"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="45sp" />
+        android:textSize="45dp" />
 
-    <EditText
-        android:id="@+id/chatText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" >
+        android:layout_height="60dp" >
 
-        <requestFocus />
-    </EditText>
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="226dp"
+            android:text="Nick:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/chatText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/submitLoginButton"
-        android:layout_width="wrap_content"
+        android:layout_width="328dp"
         android:layout_height="wrap_content"
         android:onClick="loginChat"
-        android:text="Button" />
+        android:text="Login" />
 
 </LinearLayout>

@@ -13,20 +13,23 @@
     <ScrollView
         android:id="@+id/scrollChat"
         android:layout_width="match_parent"
-        android:layout_height="356dp" >
+        android:layout_height="356dp"
+        android:layout_weight="0.62" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="338dp"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
 
             <EditText
                 android:id="@+id/chatText"
                 android:layout_width="match_parent"
-                android:layout_height="204dp"
+                android:layout_height="505dp"
                 android:editable="false"
                 android:ems="10"
-                android:gravity="center_vertical|top" >
+                android:gravity="center_vertical|top"
+                android:scrollHorizontally="true"
+                android:scrollbars="horizontal" >
 
                 <requestFocus />
             </EditText>
@@ -51,7 +54,6 @@
             android:layout_weight="1"
             android:onClick="sendMessage"
             android:text="Enviar" />
-
     </LinearLayout>
 
 </LinearLayout>
